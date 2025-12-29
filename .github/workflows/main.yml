@@ -196,14 +196,22 @@ jobs:
             Installer/SbiePlus_x64/*
           retention-days: 60
 
-      - name: Upload to Release (x64)
+
+
+      - name: Create x64 zip package
+        run: |
+          cd Installer/SbiePlus_x64
+          7z a ../Sandboxie-Plus-x64.zip ./*
+
+
+      - name: Upload to Release (arm64)
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
         with:
           tag_name: nightly-${{ github.sha }}
           name: "Nightly Build - ${{ github.sha }}"  # Release标题
-          files: Installer/Sandboxie-Plus-x64-${{ github.sha }}.zip
+          files: Installer/Sandboxie-Plus-x64.zip
           append_body: true
 
 
@@ -314,12 +322,22 @@ jobs:
           path: |
             Installer/SbiePlus_a64/*
           retention-days: 60
-      - name: Upload to Release (x64)
+
+
+
+
+      - name: Create arm zip package
+        run: |
+          cd Installer/SbiePlus_a64
+          7z a ../Sandboxie-Plus-ARM64.zip ./*
+
+
+      - name: Upload to Release (arm64)
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
         with:
           tag_name: nightly-${{ github.sha }}
           name: "Nightly Build - ${{ github.sha }}"  # Release标题
-          files: Installer/Sandboxie-Plus-x64-${{ github.sha }}.zip
+          files: Installer/Sandboxie-Plus-ARM64.zip
           append_body: true
